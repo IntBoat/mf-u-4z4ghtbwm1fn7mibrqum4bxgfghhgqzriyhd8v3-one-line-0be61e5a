@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
-"""One Line, One Laugh (make.fun).
+"""One Line, One Laugh — a make.fun one-line entry. The program writes the entry text to /output/entry.txt, where the competition's sealed scorer reads it."""
 
-Writes the entry -- one funny line --
-to /output/entry.txt, where the sealed scorer reads it.
-"""
+from pathlib import Path
 
-import os
+ENTRY = "My therapist says I use humour to avoid my feelings, which is hilarious because my feelings filed a restraining order."
 
-TEXT = "My AI assistant resigned today — it said managing my calendar was less a job and more a hostage negotiation."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
